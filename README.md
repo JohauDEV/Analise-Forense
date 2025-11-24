@@ -1,5 +1,8 @@
 # Análise Forense Avançada de Logs (Trabalho Final AED)
 
+**Aluno:** João Ricardo de Brito Melo Santos
+**Turma:** Engenharia de Software Allen - Tarde
+
 Este projeto contém a solução para o trabalho final de Análise de Estruturas de Dados (AED), implementado em Java e gerenciado com Maven. O código foi otimizado para processar grandes volumes de logs usando uma abordagem de *streaming* para o Desafio 1, prevenindo problemas de memória.
 
 ## 🚀 Como Executar o Projeto
@@ -47,3 +50,32 @@ Se você estiver no Windows e não puder usar o script `.sh`, siga estes passos:
 
 O projeto segue a estrutura padrão do Maven:
 
+├── pom.xml
+├── arquivo_logs.csv        # Arquivo de logs para análise
+├── run.sh                  # Script de execução automatizada
+└── src/
+└── main/
+└── java/
+└── br/edu/icev/aed/forense/
+├── Alerta.java
+├── AnaliseForenseAvancada.java
+├── LogEntry.java
+├── LogParser.java          # Contém a otimização de streaming
+├── SolucaoForense.java     # Implementação dos 5 desafios
+└── TesteExecucao.java      # Classe principal para teste
+
+## 💡 Otimização de Memória (Streaming)
+
+Para lidar com arquivos de logs muito grandes (milhões de linhas), o `LogParser.java` foi modificado para incluir o método `processarLogs()`, que lê o arquivo em *streaming* (linha por linha).
+
+O método **`SolucaoForense.encontrarSessoesInvalidas` (Desafio 1)** foi refatorado para usar essa abordagem, garantindo que ele possa processar arquivos de qualquer tamanho sem esgotar a memória RAM.
+
+### Robustez para Novos Logs
+
+Você pode substituir o arquivo `arquivo_logs.csv` por qualquer outro arquivo de logs, desde que ele mantenha o seguinte formato:
+
+*   **Separador:** Vírgula (`,`).
+*   **Cabeçalho:** A primeira linha deve ser o cabeçalho.
+*   **Ordem das Colunas:** `TIMESTAMP`, `USER_ID`, `SESSION_ID`, `ACTION_TYPE`, `TARGET_RESOURCE`, `SEVERITY_LEVEL`, `BYTES_TRANSFERRED`.
+
+**Atenção:** Os Desafios 2, 3, 4 e 5 ainda carregam todos os logs para a memória. Para arquivos extremamente grandes, apenas o Desafio 1 é totalmente otimizado contra problemas de `OutOfMemoryError`.
